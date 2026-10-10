@@ -99,6 +99,7 @@ export function analyticsMetrics(snapshot: Pick<MapSnapshot, 'alerts' | 'zones' 
         protection: PROTECTION_ORDER.map(key => ({ key, label: PROTECTION_SHORT[key], count: count(alert => alert.site.protection === key), color: PROTECTION[key].color })),
         nesting: NESTING_ORDER.map(key => ({ key, ...NESTING_BARS[key], count: count(alert => alert.site.nesting === key) })),
         byZone: snapshot.zones.map(zone => ({ key: zone.code, label: `Zone ${zone.code}`, detail: zone.name, count: count(alert => alert.zoneCode === zone.code), color: ZONE_BAR_COLOR })),
-        outcomes: scope === 'all' ? liveOutcomes(snapshot, sites, now) : outcomeCounts(active.map(alert => alert.site), now),
+        // Outcomes always cover the whole log: hatched and lost sites leave the map, so a map-only count never shows them.
+        outcomes: liveOutcomes(snapshot, sites, now),
     };
 }

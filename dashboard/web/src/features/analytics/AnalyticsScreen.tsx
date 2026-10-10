@@ -165,7 +165,7 @@ function Outcomes({ outcomes, demo = false }: { outcomes: { saved: number; notSa
         { key: 'pending', label: 'Pending', count: outcomes.pending, color: '#8A9BA6', note: 'still open' },
     ];
     return (
-        <Card title="Outcomes" subtitle="What happened to each nest site. No-nest findings are left out." labelled>
+        <Card title="Outcomes" subtitle="What happened to every logged nest site, including ones no longer on the map. No-nest findings are left out." labelled>
             <StackedBar title="Outcomes" segments={segments} />
             {demo && <DemoNote className="mt-3" />}
             <dl className="mt-5 grid grid-cols-3 gap-3 sm:gap-6">

@@ -45,7 +45,7 @@ describe('AnalyticsScreen', () =>
         expect(within(tile('Seen by both cameras')).getByTestId('value').textContent).toBe('100%');
         expect(within(tile('Archived')).getByTestId('value').textContent).toBe('0');
         const outcomes = screen.getByRole('region', { name: 'Outcomes' });
-        expect(within(outcomes).getByRole('img').getAttribute('aria-label')).toBe('Outcomes: 0 saved, 0 not saved, 2 pending');
+        expect(within(outcomes).getByRole('img').getAttribute('aria-label')).toBe('Outcomes: 1 saved, 1 not saved, 2 pending');
     });
 
     it('loads the persisted historical sheet with selectable time windows', async () =>

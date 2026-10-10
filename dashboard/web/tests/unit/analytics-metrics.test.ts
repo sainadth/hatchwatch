@@ -49,8 +49,8 @@ describe('analyticsMetrics', () =>
         expect(m.nesting.map(bar => [bar.key, bar.count])).toEqual([['unresolved', 2], ['confirmed', 1], ['noNest', 0]]);
         // Every zone is listed, empty ones included, in map order.
         expect(m.byZone.map(bar => [bar.key, bar.count])).toEqual([['A', 1], ['B', 2], ['C', 0]]);
-        // Outcomes are recomputed from the active sites: all still pending.
-        expect(m.outcomes).toEqual({ saved: 0, notSaved: 0, pending: 3 });
+        // Outcomes cover the whole log on every scope (hatched and lost sites leave the map).
+        expect(m.outcomes).toEqual(snapshot.outcomes);
     });
 
     it('covers everything in the snapshot on the all scope, with whole-log totals and outcomes', () =>
@@ -115,10 +115,10 @@ describe('Not saved after a danger, on the client clock', () =>
     const site = siteAlert('s1', { danger: 'active', dangerDeadline: deadline });
     const base = { ...snapshot, alerts: [site], outcomes: { saved: 4, notSaved: 2, pending: 3 }, generatedAt };
 
-    it('moves a site from pending to not saved on the map scope once its deadline passes', () =>
+    it('uses the same whole-log outcomes on the map scope as on the all scope', () =>
     {
-        expect(analyticsMetrics(base, 'map', before).outcomes).toEqual({ saved: 0, notSaved: 0, pending: 1 });
-        expect(analyticsMetrics(base, 'map', after).outcomes).toEqual({ saved: 0, notSaved: 1, pending: 0 });
+        expect(analyticsMetrics(base, 'map', before).outcomes).toEqual(analyticsMetrics(base, 'all', before).outcomes);
+        expect(analyticsMetrics(base, 'map', after).outcomes).toEqual(analyticsMetrics(base, 'all', after).outcomes);
     });
 
     it('adjusts the server whole-log outcomes for deadlines passed since the snapshot was made', () =>
