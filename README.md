@@ -6,6 +6,8 @@
 
 **Camera evidence for human-led sea turtle nest checks**
 
+🏆 **1st place, IslanderHack 2026** · built by the HatchWatch team ([team repo](https://github.com/nothing2me/hatchwatch))
+
 [Why it matters](#why-it-matters) · [How HatchWatch works](#how-hatchwatch-works) · [Run locally](#run-locally) · [Dashboard](dashboard/README.md) · [Results](#current-status)
 
 </div>
